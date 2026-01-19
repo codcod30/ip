@@ -39,6 +39,13 @@ public class OguriCap {
             if (input.startsWith("mark ")) {
                 String[] parts = input.split(" ");
                 int index = Integer.parseInt(parts[1]) - 1;
+
+                if (index < 0 || index >= taskCount) {
+                    System.out.println(line);
+                    System.out.println(spacing + "Task number out of range.");
+                    System.out.println(line);
+                    continue;
+                }
                 tasks[index].markAsDone();
 
                 System.out.println(line);
@@ -50,6 +57,13 @@ public class OguriCap {
             if (input.startsWith("unmark ")) {
                 String[] parts = input.split(" ");
                 int index = Integer.parseInt(parts[1]) - 1;
+
+                if (index < 0 || index >= taskCount) {
+                    System.out.println(line);
+                    System.out.println(spacing + "Task number out of range.");
+                    System.out.println(line);
+                    continue;
+                }
                 tasks[index].markNotDone();
 
                 System.out.println(line);
@@ -64,7 +78,7 @@ public class OguriCap {
             taskCount++;
 
             System.out.println(line);
-            System.out.println(spacing + "added:" + input);
+            System.out.println(spacing + "added: " + input);
             System.out.println(line);
         }
     }
