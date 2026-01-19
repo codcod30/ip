@@ -15,6 +15,9 @@ public class OguriCap {
 
         Scanner scanner = new Scanner(System.in);
 
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         while (true) {
             String input = scanner.nextLine();
 
@@ -23,11 +26,26 @@ public class OguriCap {
                 System.out.println(spacing + byeMsg);
                 System.out.println(line);
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(line);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(spacing + (i+1) + ". " + tasks[i]);
+                }
+                System.out.println(line);
+            } else {
+                if (taskCount < tasks.length) {
+                    tasks[taskCount] = input;
+                    taskCount++;
+                    System.out.println(line);
+                    System.out.println(spacing + "added: " + input);
+                    System.out.println(line);
+                } else {
+                    System.out.println(line);
+                    System.out.println(spacing + "Task list is full. Cannot add more tasks.");
+                    System.out.println(line);
+                }
             }
 
-            System.out.println(line);
-            System.out.println(spacing + input);
-            System.out.println(line);
         }
     }
 }
