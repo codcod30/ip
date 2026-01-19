@@ -15,7 +15,7 @@ public class OguriCap {
 
         Scanner scanner = new Scanner(System.in);
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         while (true) {
@@ -26,26 +26,46 @@ public class OguriCap {
                 System.out.println(spacing + byeMsg);
                 System.out.println(line);
                 break;
-            } else if (input.equals("list")) {
+            }
+            if (input.equals("list")) {
                 System.out.println(line);
+                System.out.println(spacing + "Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println(spacing + (i+1) + ". " + tasks[i]);
+                    System.out.println(spacing + (i + 1) + ". " + tasks[i]);
                 }
                 System.out.println(line);
-            } else {
-                if (taskCount < tasks.length) {
-                    tasks[taskCount] = input;
-                    taskCount++;
-                    System.out.println(line);
-                    System.out.println(spacing + "added: " + input);
-                    System.out.println(line);
-                } else {
-                    System.out.println(line);
-                    System.out.println(spacing + "Task list is full. Cannot add more tasks.");
-                    System.out.println(line);
-                }
+                continue;
+            }
+            if (input.startsWith("mark ")) {
+                String[] parts = input.split(" ");
+                int index = Integer.parseInt(parts[1]) - 1;
+                tasks[index].markAsDone();
+
+                System.out.println(line);
+                System.out.println(spacing + "Nice! I've marked this task as done:");
+                System.out.println(spacing + "  " + tasks[index]);
+                System.out.println(line);
+                continue;
+            }
+            if (input.startsWith("unmark ")) {
+                String[] parts = input.split(" ");
+                int index = Integer.parseInt(parts[1]) - 1;
+                tasks[index].markNotDone();
+
+                System.out.println(line);
+                System.out.println(spacing + "OK, I've marked this task as not done yet:");
+                System.out.println(spacing + "  " + tasks[index]);
+                System.out.println(line);
+                continue;
             }
 
+            Task inputTask = new Task(input);
+            tasks[taskCount] = inputTask;
+            taskCount++;
+
+            System.out.println(line);
+            System.out.println(spacing + "added:" + input);
+            System.out.println(line);
         }
     }
 }
