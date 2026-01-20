@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OguriCap {
@@ -5,8 +6,7 @@ public class OguriCap {
     static String line = "    ____________________________________________________________"; // 4 spaces for line indentation
     static String spacing = "     "; // 5 spaces for indentation for bot responses
 
-    static Task[] tasks = new Task[100];
-    static int taskCount = 0;
+    static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
 
@@ -47,8 +47,8 @@ public class OguriCap {
         if (input.equals("list")) {
             System.out.println(line);
             System.out.println(spacing + "Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(spacing + (i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(spacing + (i + 1) + ". " + tasks.get(i));
             }
             System.out.println(line);
             return;
@@ -64,13 +64,45 @@ public class OguriCap {
             return;
         }
 
+        if (input.startsWith("delete ")) {
+            handleDelete(taskParts);
+            return;
+        }
+
         switch (taskCmd) {
-        case "todo": handleTodo(taskParts); break;
-        case "deadline": handleDeadline(taskParts); break;
-        case "event": handleEvent(taskParts); break;
+        case "todo":
+            handleTodo(taskParts);
+            break;
+        case "deadline":
+            handleDeadline(taskParts);
+            break;
+        case "event":
+            handleEvent(taskParts);
+            break;
         default:
             throw new DukeException("Ah,sorry. That's not a command.");
         }
+    }
+
+    private static void handleDelete(String[] parts) throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("Please specify a task number to delete.");
+        }
+        int index;
+        try {
+            index = Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please provide a valid task number.");
+        }
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeException("Ooo... Task number out of range.");
+        }
+        Task removedTask = tasks.remove(index);
+        System.out.println(line);
+        System.out.println(spacing + "Noted. I've removed this task:");
+        System.out.println(spacing + "  " + removedTask);
+        System.out.println(spacing + "Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(line);
     }
 
     private static void handleTodo(String[] parts) {
@@ -144,15 +176,15 @@ public class OguriCap {
             throw new DukeException("Oh... Please provide a valid task number.");
         }
 
-        if (index < 0 || index >= taskCount) {
+        if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Oh... Task number out of range.");
         }
 
-        tasks[index].markAsDone();
+        tasks.get(index).markAsDone();
 
         System.out.println(line);
         System.out.println(spacing + "Nice! I've marked this task as done:");
-        System.out.println(spacing + "  " + tasks[index]);
+        System.out.println(spacing + "  " + tasks.get(index));
         System.out.println(line);
     }
 
@@ -168,25 +200,24 @@ public class OguriCap {
             throw new DukeException("Oh... Please provide a valid task number.");
         }
 
-        if (index < 0 || index >= taskCount) {
+        if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Oh... Task number out of range.");
         }
 
-        tasks[index].markNotDone();
+        tasks.get(index).markNotDone();
 
         System.out.println(line);
         System.out.println(spacing + "OK, I've marked this task as not done yet:");
-        System.out.println(spacing + "  " + tasks[index]);
+        System.out.println(spacing + "  " + tasks.get(index));
         System.out.println(line);
     }
 
     private static void addTask(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.add(task);
         System.out.println(line);
         System.out.println(spacing + "Got it. I've added this task:");
         System.out.println(spacing + "  " + task);
-        System.out.println(spacing + "Now you have " + taskCount + " tasks in the list.");
+        System.out.println(spacing + "Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(line);
     }
 }
