@@ -22,114 +22,61 @@ public class OguriCap {
 
         while (true) {
             String input = scanner.nextLine().trim();
-            String taskParts[] = input.split(" ", 2);
-            String taskCmd = taskParts[0];
 
-            if (input.equals("bye")) {
+            try {
+                processInput(input);
+            } catch (DukeException e) {
                 System.out.println(line);
-                System.out.println(spacing + byeMsg);
-                System.out.println(line);
-                break;
-            }
-            if (input.equals("list")) {
-                System.out.println(line);
-                System.out.println(spacing + "Here are the tasks in your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println(spacing + (i + 1) + ". " + tasks[i]);
-                }
-                System.out.println(line);
-                continue;
-            }
-            if (input.startsWith("mark ")) {
-                String[] parts = input.split(" ");
-
-                if (parts.length < 2) {
-                    System.out.println(line);
-                    System.out.println(spacing + "OOPS!!! Please specify a task number to mark.");
-                    System.out.println(line);
-                    continue;
-                }
-                int index;
-
-                try {
-                    index = Integer.parseInt(parts[1]) - 1;
-                } catch (NumberFormatException e) {
-                    System.out.println(line);
-                    System.out.println(spacing + "OOPS!!! Please provide a valid task number.");
-                    System.out.println(line);
-                    continue;
-                }
-
-                if (index < 0 || index >= taskCount) {
-                    System.out.println(line);
-                    System.out.println(spacing + "Task number out of range.");
-                    System.out.println(line);
-                    continue;
-                }
-                tasks[index].markAsDone();
-
-                System.out.println(line);
-                System.out.println(spacing + "Nice! I've marked this task as done:");
-                System.out.println(spacing + "  " + tasks[index]);
-                System.out.println(line);
-                continue;
-            }
-            if (input.startsWith("unmark ")) {
-                String[] parts = input.split(" ");
-
-                if (parts.length < 2) {
-                    System.out.println(line);
-                    System.out.println(spacing + "OOPS!!! Please specify a task number to mark.");
-                    System.out.println(line);
-                    continue;
-                }
-                int index;
-
-                try {
-                    index = Integer.parseInt(parts[1]) - 1;
-                } catch (NumberFormatException e) {
-                    System.out.println(line);
-                    System.out.println(spacing + "OOPS!!! Please provide a valid task number.");
-                    System.out.println(line);
-                    continue;
-                }
-
-                if (index < 0 || index >= taskCount) {
-                    System.out.println(line);
-                    System.out.println(spacing + "Task number out of range.");
-                    System.out.println(line);
-                    continue;
-                }
-                tasks[index].markNotDone();
-
-                System.out.println(line);
-                System.out.println(spacing + "OK, I've marked this task as not done yet:");
-                System.out.println(spacing + "  " + tasks[index]);
-                System.out.println(line);
-                continue;
-            }
-
-            switch (taskCmd) {
-            case "todo":
-                handleTodo(taskParts);
-                break;
-            case "deadline":
-                handleDeadline(taskParts);
-                break;
-            case "event":
-                handleEvent(taskParts);
-                break;
-            default:
-                System.out.println(line);
-                System.out.println(spacing + "OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(spacing + e.getMessage());
                 System.out.println(line);
             }
         }
     }
+
+    private static void processInput(String input) throws DukeException {
+        String[] taskParts = input.split(" ", 2);
+        String taskCmd = taskParts[0];
+
+        if (input.equals("bye")) {
+            System.out.println(line);
+            System.out.println(spacing + "Bye. I'm ready to hit the sack.");
+            System.out.println(line);
+            System.exit(0);
+        }
+
+        if (input.equals("list")) {
+            System.out.println(line);
+            System.out.println(spacing + "Here are the tasks in your list:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println(spacing + (i + 1) + ". " + tasks[i]);
+            }
+            System.out.println(line);
+            return;
+        }
+
+        if (input.startsWith("mark ")) {
+            handleMark(taskParts);
+            return;
+        }
+
+        if (input.startsWith("unmark ")) {
+            handleUnmark(taskParts);
+            return;
+        }
+
+        switch (taskCmd) {
+        case "todo": handleTodo(taskParts); break;
+        case "deadline": handleDeadline(taskParts); break;
+        case "event": handleEvent(taskParts); break;
+        default:
+            throw new DukeException("Ah,sorry. That's not a command.");
+        }
+    }
+
     private static void handleTodo(String[] parts) {
         if (parts.length < 2 || parts[1].isBlank()) {
             System.out.println(line);
-            System.out.println(spacing + "OOPS!!! The description of a todo cannot be empty.");
+            System.out.println(spacing + "Hm... Add a description to the todo.");
             System.out.println(line);
             return;
         }
@@ -140,14 +87,14 @@ public class OguriCap {
     private static void handleDeadline(String[] parts) {
         if (parts.length < 2 || parts[1].isBlank()) {
             System.out.println(line);
-            System.out.println(spacing + "OOPS!!! The description of a deadline cannot be empty.");
+            System.out.println(spacing + "Hm... Add a description to the deaddline.");
             System.out.println(line);
             return;
         }
         String[] deadlineParts = parts[1].split("/by", 2);
         if (deadlineParts.length < 2) {
             System.out.println(line);
-            System.out.println(spacing + "OOPS!!! Deadline must have /by.");
+            System.out.println(spacing + "Hm... Deadline must have /by.");
             System.out.println(line);
             return;
         }
@@ -160,14 +107,14 @@ public class OguriCap {
     private static void handleEvent(String[] parts) {
         if (parts.length < 2 || parts[1].isBlank()) {
             System.out.println(line);
-            System.out.println(spacing + "OOPS!!! The description of an event cannot be empty.");
+            System.out.println(spacing + "Hm... Add a description to the event.");
             System.out.println(line);
             return;
         }
         String[] fromSplit = parts[1].split("/from", 2);
         if  (fromSplit.length < 2) {
             System.out.println(line);
-            System.out.println(spacing + "OOPS!!! Event must have /from.");
+            System.out.println(spacing + "Hm... Event must have /from.");
             System.out.println(line);
             return;
         }
@@ -175,7 +122,7 @@ public class OguriCap {
         String[] toSplit = fromSplit[1].split("/to", 2);
         if (toSplit.length < 2) {
             System.out.println(line);
-            System.out.println(spacing + "OOPS!!! Event must have /to.");
+            System.out.println(spacing + "Hm... Event must have /to.");
             System.out.println(line);
             return;
         }
@@ -183,6 +130,54 @@ public class OguriCap {
         String to = toSplit[1].trim();
         Event event = new Event(description, from, to);
         addTask(event);
+    }
+
+    private static void handleMark(String[] parts) throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("Oh... Please specify a task number to mark.");
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Oh... Please provide a valid task number.");
+        }
+
+        if (index < 0 || index >= taskCount) {
+            throw new DukeException("Oh... Task number out of range.");
+        }
+
+        tasks[index].markAsDone();
+
+        System.out.println(line);
+        System.out.println(spacing + "Nice! I've marked this task as done:");
+        System.out.println(spacing + "  " + tasks[index]);
+        System.out.println(line);
+    }
+
+    private static void handleUnmark(String[] parts) throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("Oh... Please specify a task number to unmark.");
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Oh... Please provide a valid task number.");
+        }
+
+        if (index < 0 || index >= taskCount) {
+            throw new DukeException("Oh... Task number out of range.");
+        }
+
+        tasks[index].markNotDone();
+
+        System.out.println(line);
+        System.out.println(spacing + "OK, I've marked this task as not done yet:");
+        System.out.println(spacing + "  " + tasks[index]);
+        System.out.println(line);
     }
 
     private static void addTask(Task task) {
