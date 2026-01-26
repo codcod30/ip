@@ -154,8 +154,14 @@ public class OguriCap {
         }
         String description = deadlineParts[0].trim();
         String by = deadlineParts[1].trim();
-        Deadline deadline = new Deadline(description, by);
-        addTask(deadline);
+        try {
+            Deadline deadline = new Deadline(description, by);
+            addTask(deadline);
+        } catch (DukeException e) {
+            System.out.println(line);
+            System.out.println(spacing + e.getMessage());
+            System.out.println(line);
+        }
     }
 
     private static void handleEvent(String[] parts) {
@@ -182,8 +188,14 @@ public class OguriCap {
         }
         String from = toSplit[0].trim();
         String to = toSplit[1].trim();
-        Event event = new Event(description, from, to);
-        addTask(event);
+        try {
+            Event event = new Event(description, from, to);
+            addTask(event);
+        } catch (DukeException e) {
+            System.out.println(line);
+            System.out.println(spacing + e.getMessage());
+            System.out.println(line);
+        }
     }
 
     private static void handleMark(String[] parts) throws DukeException {
