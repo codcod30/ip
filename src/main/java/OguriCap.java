@@ -1,17 +1,22 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.*;
+import java.nio.file.*;
+
 public class OguriCap {
 
     static String line = "    ____________________________________________________________"; // 4 spaces for line indentation
     static String spacing = "     "; // 5 spaces for indentation for bot responses
 
-    static ArrayList<Task> tasks = new ArrayList<Task>();
+    static final String DATA_DIR = "data";
+    static final String DATA_FILE = Paths.get(DATA_DIR, "oguri_cap_tasks.txt").toString();
+
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
 
         String chatBotName = "Oguri Cap";
-        String byeMsg = "Bye. Hope to see you again soon!";
 
         System.out.println(line);
         System.out.println(spacing + "Hello! I'm " + chatBotName);
@@ -20,16 +25,26 @@ public class OguriCap {
 
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String input = scanner.nextLine().trim();
+        try {
+            loadTasks();
+        } catch (DukeException e) {
+            System.out.println(spacing + "Warning: Could not load saved tasks.");
+        }
 
-            try {
-                processInput(input);
-            } catch (DukeException e) {
-                System.out.println(line);
-                System.out.println(spacing + e.getMessage());
-                System.out.println(line);
+        try {
+            while (true) {
+                String input = scanner.nextLine().trim();
+
+                try {
+                    processInput(input);
+                } catch (DukeException e) {
+                    System.out.println(line);
+                    System.out.println(spacing + e.getMessage());
+                    System.out.println(line);
+                }
             }
+        } finally {
+            scanner.close();
         }
     }
 
@@ -98,6 +113,13 @@ public class OguriCap {
             throw new DukeException("Ooo... Task number out of range.");
         }
         Task removedTask = tasks.remove(index);
+
+        try {
+            saveTasks();
+        } catch (DukeException e) {
+            System.out.println(spacing + "Warning: Could not save tasks.");
+        }
+
         System.out.println(line);
         System.out.println(spacing + "Noted. I've removed this task:");
         System.out.println(spacing + "  " + removedTask);
@@ -119,7 +141,7 @@ public class OguriCap {
     private static void handleDeadline(String[] parts) {
         if (parts.length < 2 || parts[1].isBlank()) {
             System.out.println(line);
-            System.out.println(spacing + "Hm... Add a description to the deaddline.");
+            System.out.println(spacing + "Hm... Add a description to the deadline.");
             System.out.println(line);
             return;
         }
@@ -182,6 +204,12 @@ public class OguriCap {
 
         tasks.get(index).markAsDone();
 
+        try {
+            saveTasks();
+        } catch (DukeException e) {
+            System.out.println(spacing + "Warning: Could not save tasks.");
+        }
+
         System.out.println(line);
         System.out.println(spacing + "Nice! I've marked this task as done:");
         System.out.println(spacing + "  " + tasks.get(index));
@@ -206,6 +234,12 @@ public class OguriCap {
 
         tasks.get(index).markNotDone();
 
+        try {
+            saveTasks();
+        } catch (DukeException e) {
+            System.out.println(spacing + "Warning: Could not save tasks.");
+        }
+
         System.out.println(line);
         System.out.println(spacing + "OK, I've marked this task as not done yet:");
         System.out.println(spacing + "  " + tasks.get(index));
@@ -214,10 +248,82 @@ public class OguriCap {
 
     private static void addTask(Task task) {
         tasks.add(task);
+        try {
+            saveTasks();
+        } catch (DukeException e) {
+            System.out.println(spacing + "Warning: Could not save tasks.");
+        }
         System.out.println(line);
         System.out.println(spacing + "Got it. I've added this task:");
         System.out.println(spacing + "  " + task);
         System.out.println(spacing + "Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(line);
+    }
+
+    private static void ensureDataDirectoryExists() throws IOException {
+        Files.createDirectories(Paths.get(DATA_DIR));
+    }
+
+    private static void loadTasks() throws DukeException {
+        try {
+            ensureDataDirectoryExists();
+            File file = new File(DATA_FILE);
+            if (!file.exists()) {
+                return;
+            }
+
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                try {
+                    Task task = parseTaskFromFile(line);
+                    tasks.add(task);
+                } catch (DukeException e) {
+                    System.out.println(spacing + "Warning: Skipping corrupted task line.");
+                }
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("Failed to load tasks from disk.");
+        }
+    }
+
+    private static Task parseTaskFromFile(String line) throws DukeException {
+        String[] parts = line.split(" \\| ");
+
+        switch (parts[0]) {
+        case "T":
+            Todo todo = new Todo(parts[2]);
+            if (parts[1].equals("1")) todo.markAsDone();
+            return todo;
+
+        case "D":
+            Deadline deadline = new Deadline(parts[2], parts[3]);
+            if (parts[1].equals("1")) deadline.markAsDone();
+            return deadline;
+
+        case "E":
+            Event event = new Event(parts[2], parts[3], parts[4]);
+            if (parts[1].equals("1")) event.markAsDone();
+            return event;
+
+        default:
+            throw new DukeException("Corrupted task data.");
+        }
+    }
+
+    private static void saveTasks() throws DukeException {
+        try {
+            ensureDataDirectoryExists();
+
+            FileWriter fw = new FileWriter(DATA_FILE);
+            for (Task task : tasks) {
+                fw.write(task.toFileString() + System.lineSeparator());
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            throw new DukeException("Failed to save tasks: " + e.getMessage());
+        }
     }
 }
