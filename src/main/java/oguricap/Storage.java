@@ -1,3 +1,8 @@
+package oguricap;
+
+import oguricap.task.*;
+import oguricap.exception.DukeException;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;

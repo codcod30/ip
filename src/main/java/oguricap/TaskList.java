@@ -1,3 +1,6 @@
+package oguricap;
+
+import oguricap.task.Task;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -29,5 +32,9 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+
+    public boolean isValidIndex(int index) {
+        return index >= 0 && index < tasks.size();
     }
 }
