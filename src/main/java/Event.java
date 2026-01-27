@@ -7,7 +7,7 @@ public class Event extends Task {
     private LocalDate fromDate;
     private LocalDate toDate;
 
-    public Event(String description, String from, String to) throws DukeException{
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
         try {
             this.fromDate = LocalDate.parse(from);
@@ -30,7 +30,6 @@ public class Event extends Task {
         return "E | " + (isDone ? "1" : "0") + " | " + description +
                 " | " + fromDate.toString() + " | " + toDate.toString();
     }
-
 
     @Override
     public String toString() {
