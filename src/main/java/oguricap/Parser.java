@@ -38,7 +38,7 @@ public class Parser {
             if (toParts.length < 2) throw new DukeException("Event must have /to");
             return new AddCommand(new Event(evParts[0].trim(), toParts[0].trim(), toParts[1].trim()));
         default:
-            throw new DukeException("Unknown command: " + cmd);
+            throw new DukeException("Hmm...Unknown command: " + cmd);
         }
     }
 

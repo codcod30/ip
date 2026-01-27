@@ -23,6 +23,14 @@ public abstract class Task {
 
     public abstract String toFileString();
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
