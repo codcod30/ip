@@ -1,7 +1,17 @@
 package oguricap;
 
-import oguricap.command.*;
-import oguricap.task.*;
+import oguricap.command.Command;
+import oguricap.command.AddCommand;
+import oguricap.command.DeleteCommand;
+import oguricap.command.ExitCommand;
+import oguricap.command.ListCommand;
+import oguricap.command.MarkCommand;
+import oguricap.command.UnmarkCommand;
+
+import oguricap.task.Deadline;
+import oguricap.task.Event;
+import oguricap.task.Todo;
+
 import oguricap.exception.DukeException;
 
 public class Parser {
