@@ -6,13 +6,29 @@ import oguricap.Storage;
 import oguricap.exception.DukeException;
 
 import oguricap.task.Task;
-import java.util.ArrayList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a DeleteCommand with the specified task index.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public DeleteCommand(int index) { this.index = index; }
 
+    /**
+     * Executes the delete command by removing the task from the task list,
+     * saving the updated list to storage, and displaying a confirmation message.
+     *
+     * @param tasks   The task list to remove the task from.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage for saving the task list.
+     * @throws DukeException If there is an error during execution.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 

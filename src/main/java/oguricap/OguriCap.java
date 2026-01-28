@@ -3,6 +3,10 @@ package oguricap;
 import oguricap.command.Command;
 import oguricap.exception.DukeException;
 
+/**
+ * The main class for the chatbot application.
+ * Handles initialization and runs the main program loop.
+ */
 public class OguriCap {
 
     private Storage storage;
@@ -20,6 +24,9 @@ public class OguriCap {
         }
     }
 
+    /**
+     * Runs the main interaction loop for the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -38,6 +45,11 @@ public class OguriCap {
         }
     }
 
+    /**
+     * The main method to start the chatbot application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new OguriCap("data/oguri_cap_tasks.txt").run();
     }

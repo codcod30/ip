@@ -1,13 +1,24 @@
 package oguricap;
 
-import oguricap.task.*;
+import oguricap.task.Deadline;
+import oguricap.task.Event;
+import oguricap.task.Task;
+import oguricap.task.Todo;
+
 import oguricap.exception.DukeException;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.File;;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving tasks to and from the disk.
+ */
 public class Storage {
 
     private final String filePath;
@@ -17,6 +28,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by filePath.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws DukeException If there is an error reading the file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -36,6 +53,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a line from the file into a Task object.
+     *
+     * @param line The line from the file representing a task.
+     * @return The corresponding Task object.
+     * @throws DukeException If the task data is corrupted.
+     */
     private Task parseTaskFromFile(String line) throws DukeException {
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
@@ -56,6 +80,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the file specified by filePath.
+     *
+     * @param tasks The ArrayList of Task objects to be saved.
+     * @throws DukeException If there is an error saving.
+     */
     public void save(ArrayList<Task> tasks) throws DukeException {
         try {
             Files.createDirectories(Paths.get(DATA_DIR));
