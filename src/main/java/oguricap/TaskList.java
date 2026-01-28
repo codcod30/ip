@@ -73,6 +73,7 @@ public class TaskList {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * Checks if the given index is valid for the task list.
      *
@@ -80,6 +81,8 @@ public class TaskList {
      * @return True if the index is valid, false otherwise.
      */
 =======
+=======
+>>>>>>> branch-Level-9
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
@@ -91,7 +94,10 @@ public class TaskList {
     }
 
 
+<<<<<<< HEAD
 >>>>>>> branch-A-CodingStandard
+=======
+>>>>>>> branch-Level-9
     public boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
     }

@@ -5,9 +5,12 @@ import oguricap.task.Task;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 /**
  * Handles user interface interactions, including displaying messages and reading input.
  */
+=======
+>>>>>>> branch-Level-9
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
     private final String line = "    ____________________________________________________________";
@@ -111,9 +114,12 @@ public class Ui {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Displays the exit message to the user.
      */
+=======
+>>>>>>> branch-Level-9
     public void showFoundTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println(spacing + "No matching tasks found.");
