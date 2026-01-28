@@ -72,12 +72,26 @@ public class TaskList {
         return this.tasks;
     }
 
+<<<<<<< HEAD
     /**
      * Checks if the given index is valid for the task list.
      *
      * @param index The index to be checked.
      * @return True if the index is valid, false otherwise.
      */
+=======
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                results.add(task);
+            }
+        }
+        return results;
+    }
+
+
+>>>>>>> branch-A-CodingStandard
     public boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
     }
