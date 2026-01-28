@@ -7,6 +7,7 @@ import oguricap.command.ExitCommand;
 import oguricap.command.ListCommand;
 import oguricap.command.MarkCommand;
 import oguricap.command.UnmarkCommand;
+import oguricap.command.FindCommand;
 
 import oguricap.task.Deadline;
 import oguricap.task.Event;
@@ -47,6 +48,9 @@ public class Parser {
             String[] toParts = evParts[1].split("/to", 2);
             if (toParts.length < 2) throw new DukeException("Event must have /to");
             return new AddCommand(new Event(evParts[0].trim(), toParts[0].trim(), toParts[1].trim()));
+        case "find":
+            checkArgument(parts, "find");
+            return new FindCommand(parts[1]);
         default:
             throw new DukeException("Hmm...Unknown command: " + cmd);
         }

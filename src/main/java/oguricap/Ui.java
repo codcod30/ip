@@ -3,6 +3,8 @@ package oguricap;
 import java.util.Scanner;
 import oguricap.task.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
     private final String line = "    ____________________________________________________________";
@@ -55,6 +57,18 @@ public class Ui {
 
     public void showTaskList(TaskList tasks) {
         System.out.println(spacing + "Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(spacing + (i + 1) + ". " + tasks.get(i));
+        }
+    }
+
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println(spacing + "No matching tasks found.");
+            return;
+        }
+
+        System.out.println(spacing + "Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(spacing + (i + 1) + ". " + tasks.get(i));
         }

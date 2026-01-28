@@ -34,6 +34,17 @@ public class TaskList {
         return this.tasks;
     }
 
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                results.add(task);
+            }
+        }
+        return results;
+    }
+
+
     public boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
     }
