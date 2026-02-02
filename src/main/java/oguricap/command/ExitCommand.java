@@ -1,8 +1,8 @@
 package oguricap.command;
 
+import oguricap.Storage;
 import oguricap.TaskList;
 import oguricap.Ui;
-import oguricap.Storage;
 
 /**
  * Represents a command to exit the application.
@@ -19,5 +19,7 @@ public class ExitCommand extends Command {
      * @return true since this is an exit command.
      */
     @Override
-    public boolean isExit() { return true; }
+    public boolean isExit() {
+        return true;
+    }
 }

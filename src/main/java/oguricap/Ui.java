@@ -1,16 +1,13 @@
 package oguricap;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
 import oguricap.task.Task;
 
-import java.util.ArrayList;
-
-<<<<<<< HEAD
 /**
  * Handles user interface interactions, including displaying messages and reading input.
  */
-=======
->>>>>>> branch-Level-9
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
     private final String line = "    ____________________________________________________________";
@@ -114,12 +111,11 @@ public class Ui {
         }
     }
 
-<<<<<<< HEAD
     /**
-     * Displays the exit message to the user.
+     * Displays the list of found tasks to the user.
+     *
+     * @param tasks The list of tasks that match the search criteria.
      */
-=======
->>>>>>> branch-Level-9
     public void showFoundTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println(spacing + "No matching tasks found.");
@@ -132,6 +128,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the exit message to the user.
+     */
     public void showExit() {
         System.out.println(spacing + "Bye. I'm ready to hit the sack.");
     }

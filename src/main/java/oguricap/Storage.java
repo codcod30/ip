@@ -1,28 +1,26 @@
 package oguricap;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import oguricap.exception.DukeException;
 import oguricap.task.Deadline;
 import oguricap.task.Event;
 import oguricap.task.Task;
 import oguricap.task.Todo;
-
-import oguricap.exception.DukeException;
-
-import java.io.File;;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;;
-import java.nio.file.Paths;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Handles loading and saving tasks to and from the disk.
  */
 public class Storage {
 
-    private final String filePath;
     private static final String DATA_DIR = "data";
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -39,7 +37,9 @@ public class Storage {
         try {
             Files.createDirectories(Paths.get(DATA_DIR));
             File file = new File(filePath);
-            if (!file.exists()) return tasks;
+            if (!file.exists()) {
+                return tasks;
+            }
 
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -65,15 +65,21 @@ public class Storage {
         switch (parts[0]) {
         case "T":
             Todo todo = new Todo(parts[2]);
-            if (parts[1].equals("1")) todo.markAsDone();
+            if (parts[1].equals("1")) {
+                todo.markAsDone();
+            }
             return todo;
         case "D":
             Deadline deadline = new Deadline(parts[2], parts[3]);
-            if (parts[1].equals("1")) deadline.markAsDone();
+            if (parts[1].equals("1")) {
+                deadline.markAsDone();
+            }
             return deadline;
         case "E":
             Event event = new Event(parts[2], parts[3], parts[4]);
-            if (parts[1].equals("1")) event.markAsDone();
+            if (parts[1].equals("1")) {
+                event.markAsDone();
+            }
             return event;
         default:
             throw new DukeException("Corrupted task data.");

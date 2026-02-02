@@ -1,10 +1,9 @@
 package oguricap.command;
 
+import oguricap.Storage;
 import oguricap.TaskList;
 import oguricap.Ui;
-import oguricap.Storage;
 import oguricap.exception.DukeException;
-
 import oguricap.task.Task;
 
 /**
@@ -18,7 +17,9 @@ public class DeleteCommand extends Command {
      *
      * @param index The index of the task to be deleted.
      */
-    public DeleteCommand(int index) { this.index = index; }
+    public DeleteCommand(int index) {
+        this.index = index;
+    }
 
     /**
      * Executes the delete command by removing the task from the task list,
