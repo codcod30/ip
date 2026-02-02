@@ -1,8 +1,8 @@
 package oguricap.command;
 
+import oguricap.Storage;
 import oguricap.TaskList;
 import oguricap.Ui;
-import oguricap.Storage;
 import oguricap.exception.DukeException;
 
 /**

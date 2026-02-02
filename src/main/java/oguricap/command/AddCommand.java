@@ -1,10 +1,10 @@
 package oguricap.command;
 
-import oguricap.task.Task;
+import oguricap.Storage;
 import oguricap.TaskList;
 import oguricap.Ui;
-import oguricap.Storage;
 import oguricap.exception.DukeException;
+import oguricap.task.Task;
 
 /**
  * Represents a command to add a task to the task list.
@@ -17,7 +17,9 @@ public class AddCommand extends Command {
      *
      * @param task The task to be added.
      */
-    public AddCommand(Task task) { this.task = task; }
+    public AddCommand(Task task) {
+        this.task = task;
+    }
 
     /**
      * Executes the add command by adding the task to the task list,

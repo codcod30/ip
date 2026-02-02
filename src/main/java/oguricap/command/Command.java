@@ -1,10 +1,13 @@
 package oguricap.command;
 
+import oguricap.Storage;
 import oguricap.TaskList;
 import oguricap.Ui;
-import oguricap.Storage;
 import oguricap.exception.DukeException;
 
+/**
+ * Represents a command that can be executed by the chatbot.
+ */
 public abstract class Command {
     /**
      * Executes the command.

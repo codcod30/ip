@@ -1,19 +1,17 @@
 package oguricap;
 
-import oguricap.command.Command;
 import oguricap.command.AddCommand;
+import oguricap.command.Command;
 import oguricap.command.DeleteCommand;
 import oguricap.command.ExitCommand;
+import oguricap.command.FindCommand;
 import oguricap.command.ListCommand;
 import oguricap.command.MarkCommand;
 import oguricap.command.UnmarkCommand;
-import oguricap.command.FindCommand;
-
+import oguricap.exception.DukeException;
 import oguricap.task.Deadline;
 import oguricap.task.Event;
 import oguricap.task.Todo;
-
-import oguricap.exception.DukeException;
 
 /**
  * Parses user input strings and converts them into executable Command objects.
@@ -49,14 +47,20 @@ public class Parser {
         case "deadline":
             checkArgument(parts, "deadline");
             String[] dlParts = parts[1].split("/by", 2);
-            if (dlParts.length < 2) throw new DukeException("Deadline must have /by");
+            if (dlParts.length < 2) {
+                throw new DukeException("Deadline must have /by");
+            }
             return new AddCommand(new Deadline(dlParts[0].trim(), dlParts[1].trim()));
         case "event":
             checkArgument(parts, "event");
             String[] evParts = parts[1].split("/from", 2);
-            if (evParts.length < 2) throw new DukeException("Event must have /from");
+            if (evParts.length < 2) {
+                throw new DukeException("Event must have /from");
+            }
             String[] toParts = evParts[1].split("/to", 2);
-            if (toParts.length < 2) throw new DukeException("Event must have /to");
+            if (toParts.length < 2) {
+                throw new DukeException("Event must have /to");
+            }
             return new AddCommand(new Event(evParts[0].trim(), toParts[0].trim(), toParts[1].trim()));
         case "find":
             checkArgument(parts, "find");

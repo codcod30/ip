@@ -1,8 +1,8 @@
 package oguricap.command;
 
+import oguricap.Storage;
 import oguricap.TaskList;
 import oguricap.Ui;
-import oguricap.Storage;
 import oguricap.exception.DukeException;
 
 /**
@@ -16,7 +16,9 @@ public class UnmarkCommand extends Command {
      *
      * @param index The index of the task to be unmarked.
      */
-    public UnmarkCommand(int index) { this.index = index; }
+    public UnmarkCommand(int index) {
+        this.index = index;
+    }
 
     /**
      * Executes the unmark command by marking the task as not done in the task list,

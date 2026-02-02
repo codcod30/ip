@@ -1,7 +1,8 @@
 package oguricap;
 
-import oguricap.task.Task;
 import java.util.ArrayList;
+
+import oguricap.task.Task;
 
 /**
  * Represents a list of tasks managed by the chatbot.
@@ -72,17 +73,12 @@ public class TaskList {
         return this.tasks;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
-     * Checks if the given index is valid for the task list.
+     * Finds and returns tasks that contain the specified keyword.
      *
-     * @param index The index to be checked.
-     * @return True if the index is valid, false otherwise.
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that contain the keyword.
      */
-=======
-=======
->>>>>>> branch-Level-9
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
@@ -93,11 +89,12 @@ public class TaskList {
         return results;
     }
 
-
-<<<<<<< HEAD
->>>>>>> branch-A-CodingStandard
-=======
->>>>>>> branch-Level-9
+    /**
+     * Checks if the given index is valid for the task list.
+     *
+     * @param index The index to be checked.
+     * @return True if the index is valid, false otherwise.
+     */
     public boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
     }

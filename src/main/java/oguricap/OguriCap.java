@@ -13,6 +13,11 @@ public class OguriCap {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs an OguriCap chatbot with the specified file path for storage.
+     *
+     * @param filePath The file path to load and save tasks.
+     */
     public OguriCap(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
