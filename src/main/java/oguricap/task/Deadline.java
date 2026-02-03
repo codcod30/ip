@@ -3,6 +3,7 @@ package oguricap.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import oguricap.exception.DukeException;
 
 /**
@@ -10,8 +11,8 @@ import oguricap.exception.DukeException;
  */
 public class Deadline extends Task {
 
-    private LocalDate byDate;
     private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private LocalDate byDate;
 
     /**
      * Constructs a Deadline task.

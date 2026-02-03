@@ -11,6 +11,9 @@ public class OguriCap {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes OguriCap with the specified file path for storage.
+     */
     public OguriCap(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

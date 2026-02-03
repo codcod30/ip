@@ -44,7 +44,7 @@ public class Parser {
             checkArgument(parts, "mark");
             try {
                 int index = Integer.parseInt(parts[1].trim()) - 1;
-                return new MarkCommand(index);
+                return new UnmarkCommand(index);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid task number for mark: " + parts[1]);
             }
@@ -52,7 +52,7 @@ public class Parser {
             checkArgument(parts, "mark");
             try {
                 int index = Integer.parseInt(parts[1].trim()) - 1;
-                return new MarkCommand(index);
+                return new DeleteCommand(index);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid task number for mark: " + parts[1]);
             }

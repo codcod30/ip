@@ -3,6 +3,7 @@ package oguricap.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import oguricap.exception.DukeException;
 
 /**
@@ -10,9 +11,9 @@ import oguricap.exception.DukeException;
  */
 public class Event extends Task {
 
-    private LocalDate fromDate;
-    private LocalDate toDate;
     private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
 
     /**
      * Constructs an Event task.
@@ -62,8 +63,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + fromDate.format(DISPLAY_FORMAT) +
-                " to: " + toDate.format(DISPLAY_FORMAT) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + fromDate.format(DISPLAY_FORMAT)
+                + " to: " + toDate.format(DISPLAY_FORMAT) + ")";
     }
 }
