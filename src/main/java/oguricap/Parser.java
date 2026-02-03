@@ -34,13 +34,28 @@ public class Parser {
         case "list": return new ListCommand();
         case "mark":
             checkArgument(parts, "mark");
-            return new MarkCommand(Integer.parseInt(parts[1]) - 1);
+            try {
+                int index = Integer.parseInt(parts[1].trim()) - 1;
+                return new MarkCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid task number for mark: " + parts[1]);
+            }
         case "unmark":
-            checkArgument(parts, "unmark");
-            return new UnmarkCommand(Integer.parseInt(parts[1]) - 1);
+            checkArgument(parts, "mark");
+            try {
+                int index = Integer.parseInt(parts[1].trim()) - 1;
+                return new MarkCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid task number for mark: " + parts[1]);
+            }
         case "delete":
-            checkArgument(parts, "delete");
-            return new DeleteCommand(Integer.parseInt(parts[1]) - 1);
+            checkArgument(parts, "mark");
+            try {
+                int index = Integer.parseInt(parts[1].trim()) - 1;
+                return new MarkCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid task number for mark: " + parts[1]);
+            }
         case "todo":
             checkArgument(parts, "todo");
             return new AddCommand(new Todo(parts[1]));

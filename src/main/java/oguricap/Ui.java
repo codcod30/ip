@@ -7,131 +7,95 @@ import oguricap.task.Task;
 
 /**
  * Handles user interface interactions, including displaying messages and reading input.
+ * Supports both CLI (System.out) and GUI (via getLastOutput).
  */
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
     private final String line = "    ____________________________________________________________";
     private final String spacing = "     ";
+    private StringBuilder outputBuffer = new StringBuilder();
 
-    /**
-     * Displays a horizontal line for formatting.
-     */
+    public Ui() {}
+
+    /** Clears the output buffer before generating a new response */
+    public void clearOutput() {
+        outputBuffer.setLength(0);
+    }
+
+    /** Returns the last output as a string for GUI */
+    public String getLastOutput() {
+        return outputBuffer.toString().trim();
+    }
+
+    /** Adds a line to the output buffer (for CLI & GUI) */
+    private void append(String message) {
+        outputBuffer.append(message).append("\n");
+        System.out.println(message); // keep CLI output
+    }
+
     public void showLine() {
-        System.out.println(line);
+        append(line);
     }
 
-    /**
-     * Displays the welcome message to the user.
-     */
     public void showWelcome() {
-        System.out.println(line);
-        System.out.println(spacing + "Hello! I'm Oguri Cap");
-        System.out.println(spacing + "All right, what's first on today's agenda?");
-        System.out.println(line);
+        append(spacing + "Hello! I'm Oguri Cap");
+        append(spacing + "All right, what's first on today's agenda?");
     }
 
-    /**
-     * Displays an error message when loading saved tasks fails.
-     */
     public void showLoadingError() {
-        System.out.println(spacing + "Warning: Could not load saved tasks.");
+        append(spacing + "Warning: Could not load saved tasks.");
     }
 
-    /**
-     * Reads a command input from the user.
-     *
-     * @return The command entered by the user as a trimmed string.
-     */
     public String readCommand() {
         return scanner.nextLine().trim();
     }
 
-    /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to display.
-     */
     public void showError(String message) {
-        System.out.println(spacing + message);
+        append(spacing + message);
     }
 
-    /**
-     * Displays a message confirming the addition of a task.
-     *
-     * @param task The task that was added.
-     * @param size The current number of tasks in the list.
-     */
     public void showAddTask(Task task, int size) {
-        System.out.println(spacing + "Got it. I've added this task:");
-        System.out.println(spacing + "  " + task);
-        System.out.println(spacing + "Now you have " + size + " tasks in the list.");
+        append(spacing + "Got it. I've added this task:");
+        append(spacing + "  " + task);
+        append(spacing + "Now you have " + size + " tasks in the list.");
     }
 
-    /**
-     * Displays a message confirming the deletion of a task.
-     *
-     * @param task The task that was deleted.
-     * @param size The current number of tasks in the list.
-     */
     public void showDeletedTask(Task task, int size) {
-        System.out.println(spacing + "Noted. I've removed this task:");
-        System.out.println(spacing + "  " + task);
-        System.out.println(spacing + "Now you have " + size + " tasks in the list.");
+        append(spacing + "Noted. I've removed this task:");
+        append(spacing + "  " + task);
+        append(spacing + "Now you have " + size + " tasks in the list.");
     }
 
-    /**
-     * Displays a message confirming that a task has been marked as done.
-     *
-     * @param task The task that was marked.
-     */
     public void showMarkedTask(Task task) {
-        System.out.println(spacing + "Nice! I've marked this task as done:");
-        System.out.println(spacing + "  " + task);
+        append(spacing + "Nice! I've marked this task as done:");
+        append(spacing + "  " + task);
     }
 
-    /**
-     * Displays a message confirming that a task has been unmarked (set to not done).
-     *
-     * @param task The task that was unmarked.
-     */
     public void showUnmarkedTask(Task task) {
-        System.out.println(spacing + "OK, I've marked this task as not done yet:");
-        System.out.println(spacing + "  " + task);
+        append(spacing + "OK, I've marked this task as not done yet:");
+        append(spacing + "  " + task);
     }
 
-    /**
-     * Displays the list of tasks to the user.
-     *
-     * @param tasks The TaskList containing the tasks to display.
-     */
     public void showTaskList(TaskList tasks) {
-        System.out.println(spacing + "Here are the tasks in your list:");
+        append(spacing + "Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(spacing + (i + 1) + ". " + tasks.get(i));
+            append(spacing + (i + 1) + ". " + tasks.get(i));
         }
     }
 
-    /**
-     * Displays the list of found tasks to the user.
-     *
-     * @param tasks The list of tasks that match the search criteria.
-     */
     public void showFoundTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(spacing + "No matching tasks found.");
+            append(spacing + "No matching tasks found.");
             return;
         }
 
-        System.out.println(spacing + "Here are the matching tasks in your list:");
+        append(spacing + "Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(spacing + (i + 1) + ". " + tasks.get(i));
+            append(spacing + (i + 1) + ". " + tasks.get(i));
         }
     }
 
-    /**
-     * Displays the exit message to the user.
-     */
     public void showExit() {
-        System.out.println(spacing + "Bye. I'm ready to hit the sack.");
+        append(spacing + "Bye. I'm ready to hit the sack.");
     }
 }

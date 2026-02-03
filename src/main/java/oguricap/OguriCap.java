@@ -4,58 +4,46 @@ import oguricap.command.Command;
 import oguricap.exception.DukeException;
 
 /**
- * The main class for the chatbot application.
- * Handles initialization and runs the main program loop.
+ * Core logic of the chatbot.
  */
 public class OguriCap {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    /**
-     * Constructs an OguriCap chatbot with the specified file path for storage.
-     *
-     * @param filePath The file path to load and save tasks.
-     */
     public OguriCap(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    /**
-     * Runs the main interaction loop for the chatbot.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    /** Returns the response string for GUI */
+    public String getResponse(String input) {
+        ui.clearOutput();
+        if (tasks == null || ui == null) return "";
+
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
         }
+        return ui.getLastOutput();
     }
 
-    /**
-     * The main method to start the chatbot application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new OguriCap("data/oguri_cap_tasks.txt").run();
+    // helper method to check if input is exit
+    public boolean isExitCommand(String input) {
+        return input.trim().equals("bye");
+    }
+
+    /** Returns the welcome message for GUI */
+    public String getWelcomeMessage() {
+        ui.clearOutput();
+        ui.showWelcome();
+        return ui.getLastOutput();
     }
 }
