@@ -1,0 +1,45 @@
+.root {
+    -fx-background-color: #f0f8ff;
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+.text-field {
+    -fx-background-color: rgba(210, 255, 230, 0.8); /* pastel mint green */
+    -fx-font: 18px "Arial";
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.5); /* softer placeholder text */
+    -fx-background-radius: 0.5em;
+    -fx-border-radius: 0.5em;
+    -fx-border-color: rgba(150, 150, 150, 0.3);
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: rgba(240, 248, 255, 0.5); /* pastel scrollbar track */
+}
+
+.button {
+    -fx-background-color: rgba(144, 238, 144, 0.8); /* pastel green */
+    -fx-font: italic bold 16px "Arial";
+    -fx-text-fill: black;
+    -fx-background-radius: 0.5em;
+    -fx-border-radius: 0.5em;
+    -fx-border-color: rgba(120, 120, 120, 0.3);
+}
+
+.button:hover {
+    -fx-background-color: rgba(135, 206, 250, 0.8); /* pastel sky blue */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: rgba(255, 182, 193, 0.8); /* pastel pink */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+}

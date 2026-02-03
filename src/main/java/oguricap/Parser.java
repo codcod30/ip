@@ -81,7 +81,7 @@ public class Parser {
             checkArgument(parts, "find");
             return new FindCommand(parts[1]);
         default:
-            throw new DukeException("Hmm...Unknown command: " + cmd);
+            throw new DukeException("Hmm...Unknown command: " + input);
         }
     }
 

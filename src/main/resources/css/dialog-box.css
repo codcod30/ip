@@ -1,0 +1,37 @@
+/* User dialog (pastel green) */
+.user-label {
+    -fx-background-color: rgba(178, 242, 187, 0.8);
+    -fx-border-color: #B2F2BB;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 6px;
+    -fx-text-fill: black;
+}
+
+/* Bot dialog (pastel peach) */
+.reply-label {
+    -fx-background-color: rgba(255, 218, 185, 0.8);
+    -fx-border-color: #FFDAB9;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 6px;
+    -fx-text-fill: black;
+}
+
+/* Command-specific overrides */
+.add-label {
+    -fx-background-color: rgba(255, 255, 153, 0.8);
+    -fx-text-fill: black;
+}
+
+.marked-label {
+    -fx-background-color: rgba(173, 255, 173, 0.8);
+    -fx-text-fill: black;
+}
+
+.delete-label {
+    -fx-background-color: rgba(255, 182, 193, 0.8);
+    -fx-text-fill: black;
+}

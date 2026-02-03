@@ -28,7 +28,9 @@ public class Main extends Application {
 
             stage.setScene(scene);
             stage.setTitle("Oguri Cap");
-            stage.setResizable(false);
+            stage.setMinHeight(600);
+            stage.setMinWidth(400);
+            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -29,17 +29,25 @@ public class MainWindow {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/oguri.png"));
 
-    /** Called by FXML loader after fields are injected */
+    /**
+     * Initializes the main window controller.
+     */
     @FXML
     public void initialize() {
         // Scroll automatically to the bottom
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Scroll automatically to the bottom whenever a new dialog is added
+        dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
+            scrollPane.setVvalue(1.0);
+        });
 
         sendButton.setOnMouseClicked(event -> handleUserInput());
         userInput.setOnAction(event -> handleUserInput());
     }
 
-    /** Injects the OguriCap instance */
+    /**
+     * Injects the OguriCap instance into the controller.
+     * @param oc
+     */
     public void setOguriCap(OguriCap oc) {
         this.oguriCap = oc;
 
@@ -49,7 +57,9 @@ public class MainWindow {
         );
     }
 
-    /** Handle user input, append dialogs, and clear the input */
+    /**
+     * Handles user input and generates responses.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -73,8 +83,6 @@ public class MainWindow {
             delay.play();
         }
     }
-
-    // ===== Helper methods for testing or other use =====
 
     public VBox getDialogContainer() {
         return dialogContainer;
