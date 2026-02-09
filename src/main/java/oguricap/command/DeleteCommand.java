@@ -10,7 +10,7 @@ import oguricap.task.Task;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Constructs a DeleteCommand with the specified task index.

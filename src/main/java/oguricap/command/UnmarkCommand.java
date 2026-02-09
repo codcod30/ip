@@ -9,7 +9,7 @@ import oguricap.exception.DukeException;
  * Represents a command to unmark a task as not done.
  */
 public class UnmarkCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Constructs an UnmarkCommand with the specified task index.
