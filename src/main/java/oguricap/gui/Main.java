@@ -33,7 +33,7 @@ public class Main extends Application {
             stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to load MainWindow.fxml", e);
         }
     }
 }
