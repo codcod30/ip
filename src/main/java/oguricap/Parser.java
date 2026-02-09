@@ -5,6 +5,7 @@ import oguricap.command.Command;
 import oguricap.command.DeleteCommand;
 import oguricap.command.ExitCommand;
 import oguricap.command.FindCommand;
+import oguricap.command.HelpCommand;
 import oguricap.command.ListCommand;
 import oguricap.command.MarkCommand;
 import oguricap.command.UnmarkCommand;
@@ -83,6 +84,8 @@ public class Parser {
         case "find":
             checkArgument(parts, "find");
             return new FindCommand(parts[1]);
+        case "help":
+            return new HelpCommand();
         default:
             throw new DukeException("Hmm...Unknown command: " + input);
         }
