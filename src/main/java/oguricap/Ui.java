@@ -46,8 +46,9 @@ public class Ui {
      * Displays the welcome message.
      */
     public void showWelcome() {
-        append(spacing + "Hello! I'm Oguri Cap");
+        append(spacing + "Hello! I'm Oguri Cap!");
         append(spacing + "All right, what's first on today's agenda?");
+        append(spacing + "Type \"help\" to see available commands.");
     }
 
     /**
@@ -146,6 +147,14 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             append(spacing + (i + 1) + ". " + tasks.get(i));
         }
+    }
+
+    /**
+     * Displays a generic message.
+     * @param message The message to be displayed.
+     */
+    public void showMessage(String message) {
+        append(spacing + message);
     }
 
     /**
