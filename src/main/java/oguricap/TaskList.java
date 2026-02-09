@@ -84,7 +84,7 @@ public class TaskList {
      * @param keyword The keyword to search for.
      * @return A list of tasks that contain the keyword.
      */
-    public ArrayList<Task> find(String keyword) {
+    public ArrayList<Task> findTasks(String keyword) {
         return tasks.stream()
                 .filter(task -> task.toString().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
