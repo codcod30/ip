@@ -49,6 +49,7 @@ public class MainWindow {
      * @param oc
      */
     public void setOguriCap(OguriCap oc) {
+        assert oc != null : "OguriCap instance cannot be null";
         this.oguriCap = oc;
 
         // Show welcome message now that oguriCap is injected

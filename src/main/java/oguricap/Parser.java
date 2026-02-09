@@ -26,7 +26,10 @@ public class Parser {
      * @throws DukeException If the input is invalid or cannot be parsed.
      */
     public static Command parse(String input) throws DukeException {
+        assert input != null : "Input cannot be null";
+        assert !input.isBlank() : "Input cannot be blank";
         String[] parts = input.split(" ", 2);
+        assert parts.length >= 1 : "There should be at least one part in the input";
         String cmd = parts[0];
 
         switch (cmd) {
