@@ -8,13 +8,13 @@ import oguricap.task.Task;
  * Represents a list of tasks managed by the chatbot.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Initializes an empty task list.
      */
     public TaskList() {
-        tasks = new ArrayList<>();
+        assert tasks != null : "Task list should never be null";
     }
 
     /**
@@ -32,6 +32,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert task != null : "Task list should never be null";
         tasks.add(task);
     }
 
@@ -52,6 +53,8 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
+        assert index >= 0 : "Index should be greater than 0";
+        assert index < tasks.size() : "Index must be within list size";
         return tasks.get(index);
     }
 
@@ -70,6 +73,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
+        assert tasks != null : "Task list should never be null";
         return this.tasks;
     }
 
@@ -79,7 +83,7 @@ public class TaskList {
      * @param keyword The keyword to search for.
      * @return A list of tasks that contain the keyword.
      */
-    public ArrayList<Task> find(String keyword) {
+    public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
             if (task.toString().contains(keyword)) {
