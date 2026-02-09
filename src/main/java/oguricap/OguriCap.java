@@ -9,7 +9,7 @@ import oguricap.exception.DukeException;
 public class OguriCap {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Initializes OguriCap with the specified file path for storage.
@@ -39,7 +39,6 @@ public class OguriCap {
         return ui.getLastOutput();
     }
 
-    // helper method to check if input is exit
     public boolean isExitCommand(String input) {
         return input.trim().equals("bye");
     }

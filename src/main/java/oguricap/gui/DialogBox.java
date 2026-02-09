@@ -48,9 +48,9 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Applies style to the dialog box based on command type and user/bot.
-     * @param commandType
-     * @param isUser
+     * Applies style based on command type and whether it's user or bot.
+     * @param commandType the type of command (e.g., "AddCommand", "MarkCommand", etc.)
+     * @param isUser true if the dialog is from the user, false if from the bot
      */
     private void applyStyle(String commandType, boolean isUser) {
         if (isUser) {
@@ -85,7 +85,6 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    // Overloaded to allow passing command type
     public static DialogBox getDukeDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
