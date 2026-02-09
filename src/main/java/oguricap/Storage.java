@@ -22,7 +22,12 @@ public class Storage {
     private static final String DATA_DIR = "data";
     private final String filePath;
 
+    /**
+     * Initializes Storage with the specified file path.
+     * @param filePath
+     */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
     }
 
@@ -93,6 +98,7 @@ public class Storage {
      * @throws DukeException If there is an error saving.
      */
     public void save(ArrayList<Task> tasks) throws DukeException {
+        assert tasks != null : "Tasks to save cannot be null";
         try {
             Files.createDirectories(Paths.get(DATA_DIR));
             FileWriter fw = new FileWriter(filePath);

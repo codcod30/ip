@@ -27,7 +27,7 @@ public class OguriCap {
     /** Returns the response string for GUI */
     public String getResponse(String input) {
         ui.clearOutput();
-        if (tasks == null) {
+        if (tasks == null || ui == null) {
             return "";
         }
         try {
