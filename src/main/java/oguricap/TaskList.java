@@ -1,6 +1,7 @@
 package oguricap;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import oguricap.task.Task;
 
@@ -83,14 +84,10 @@ public class TaskList {
      * @param keyword The keyword to search for.
      * @return A list of tasks that contain the keyword.
      */
-    public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> results = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.toString().contains(keyword)) {
-                results.add(task);
-            }
-        }
-        return results;
+    public ArrayList<Task> find(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**

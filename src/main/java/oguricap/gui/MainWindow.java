@@ -1,5 +1,7 @@
 package oguricap.gui;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,8 +28,10 @@ public class MainWindow {
 
     private OguriCap oguriCap;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/oguri.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/user.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/oguri.png")));
 
     /**
      * Initializes the main window controller.
@@ -79,7 +83,8 @@ public class MainWindow {
 
         if (oguriCap.isExitCommand(input)) {
             // Use PauseTransition to delay closing
-            javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(1));
+            javafx.animation.PauseTransition delay = new javafx.animation
+                    .PauseTransition(javafx.util.Duration.seconds(1));
             delay.setOnFinished(event -> System.exit(0));
             delay.play();
         }
