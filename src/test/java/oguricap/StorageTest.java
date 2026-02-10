@@ -1,12 +1,18 @@
 package oguricap;
 
-import oguricap.task.Todo;
-import oguricap.task.Task;
-import org.junit.jupiter.api.*;
-import java.nio.file.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import oguricap.task.Task;
+import oguricap.task.Todo;
+
+
 
 class StorageTest {
 

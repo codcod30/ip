@@ -1,9 +1,13 @@
 package oguricap;
 
-import oguricap.command.*;
-import oguricap.exception.DukeException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import oguricap.command.Command;
+import oguricap.command.MarkCommand;
+import oguricap.exception.DukeException;
 
 class ParserTest {
 

@@ -1,9 +1,11 @@
 package oguricap.task;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 import oguricap.exception.DukeException;
 
