@@ -24,7 +24,7 @@ public class Storage {
 
     /**
      * Initializes Storage with the specified file path.
-     * @param filePath
+     * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
         assert filePath != null : "File path cannot be null";

@@ -17,12 +17,16 @@ public class Ui {
 
     public Ui() {}
 
-    /** Clears the output buffer before generating a new response */
+    /**
+     * Clears the output buffer before generating a new response
+     */
     public void clearOutput() {
         outputBuffer.setLength(0);
     }
 
-    /** Returns the last output as a string for GUI */
+    /**
+     * Returns the last output as a string for GUI
+     */
     public String getLastOutput() {
         return outputBuffer.toString().trim();
     }

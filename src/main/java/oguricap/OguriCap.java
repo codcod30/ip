@@ -24,7 +24,11 @@ public class OguriCap {
         }
     }
 
-    /** Returns the response string for GUI */
+    /**
+     * Generates a response based on user input.
+     * @param input User input string
+     * @return Response string
+     */
     public String getResponse(String input) {
         ui.clearOutput();
         if (tasks == null) {
@@ -43,7 +47,9 @@ public class OguriCap {
         return input.trim().equals("bye");
     }
 
-    /** Returns the welcome message for GUI */
+    /**
+     * Returns the welcome message for GUI
+     */
     public String getWelcomeMessage() {
         ui.clearOutput();
         ui.showWelcome();

@@ -90,26 +90,50 @@ public class MainWindow {
         }
     }
 
+    /**
+     * Gets the dialog container VBox.
+     * @return VBox containing dialog boxes
+     */
     public VBox getDialogContainer() {
         return dialogContainer;
     }
 
+    /**
+     * Gets the scroll pane.
+     * @return ScrollPane instance
+     */
     public ScrollPane getScrollPane() {
         return scrollPane;
     }
 
+    /**
+     * Gets the user input TextField.
+     * @return TextField for user input
+     */
     public TextField getUserInput() {
         return userInput;
     }
 
+    /**
+     * Gets the send button.
+     * @return Button for sending input
+     */
     public Button getSendButton() {
         return sendButton;
     }
 
+    /**
+     * Gets the current window (Stage).
+     * @return Stage instance
+     */
     public Stage getWindow() {
         return (Stage) scrollPane.getScene().getWindow();
     }
 
+    /**
+     * Gets the current scene.
+     * @return Scene instance
+     */
     public Scene getScene() {
         return scrollPane.getScene();
     }
