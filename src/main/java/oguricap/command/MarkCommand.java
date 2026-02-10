@@ -34,7 +34,7 @@ public class MarkCommand extends Command {
             throw new DukeException("Task number out of range. Please enter a valid number.");
         }
         tasks.get(index).markAsDone();
-        storage.save(tasks.getTasks());
+        storage.save(tasks.getList());
         ui.showMarkedTask(tasks.get(index));
     }
 }

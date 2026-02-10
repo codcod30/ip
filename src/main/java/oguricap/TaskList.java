@@ -73,7 +73,7 @@ public class TaskList {
      *
      * @return The list of tasks.
      */
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getList() {
         assert tasks != null : "Task list should never be null";
         return this.tasks;
     }
