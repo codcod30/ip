@@ -50,7 +50,7 @@ public class MainWindow {
 
     /**
      * Injects the OguriCap instance into the controller.
-     * @param oc
+     * @param oc OguriCap instance
      */
     public void setOguriCap(OguriCap oc) {
         assert oc != null : "OguriCap instance cannot be null";
