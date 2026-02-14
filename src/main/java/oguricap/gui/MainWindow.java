@@ -3,13 +3,11 @@ package oguricap.gui;
 import java.util.Objects;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import oguricap.OguriCap;
 
 /**
@@ -88,54 +86,6 @@ public class MainWindow {
             delay.setOnFinished(event -> System.exit(0));
             delay.play();
         }
-    }
-
-    /**
-     * Gets the dialog container VBox.
-     * @return VBox containing dialog boxes
-     */
-    public VBox getDialogContainer() {
-        return dialogContainer;
-    }
-
-    /**
-     * Gets the scroll pane.
-     * @return ScrollPane instance
-     */
-    public ScrollPane getScrollPane() {
-        return scrollPane;
-    }
-
-    /**
-     * Gets the user input TextField.
-     * @return TextField for user input
-     */
-    public TextField getUserInput() {
-        return userInput;
-    }
-
-    /**
-     * Gets the send button.
-     * @return Button for sending input
-     */
-    public Button getSendButton() {
-        return sendButton;
-    }
-
-    /**
-     * Gets the current window (Stage).
-     * @return Stage instance
-     */
-    public Stage getWindow() {
-        return (Stage) scrollPane.getScene().getWindow();
-    }
-
-    /**
-     * Gets the current scene.
-     * @return Scene instance
-     */
-    public Scene getScene() {
-        return scrollPane.getScene();
     }
 
 }
