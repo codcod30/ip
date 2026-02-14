@@ -1,5 +1,5 @@
 D | 1 | return book | 2019-10-15
-T | 0 | iuuwiughef
+T | 0 | assignment
 T | 1 | read book
-T | 0 | return ofadf
-T | 1 | return akldjfad
+T | 0 | return book
+T | 1 | submit assignment
