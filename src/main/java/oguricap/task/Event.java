@@ -26,10 +26,14 @@ public class Event extends Task {
     public Event(String description, String from, String to) throws DukeException {
         super(description);
         try {
-            this.fromDate = LocalDate.parse(from); // expects yyyy-MM-dd
+            this.fromDate = LocalDate.parse(from);
             this.toDate = LocalDate.parse(to);
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date format! Use yyyy-MM-dd (e.g., 2019-10-15)");
+        }
+
+        if (toDate.isBefore(fromDate)) {
+            throw new DukeException("The end date cannot be before the start date.");
         }
     }
 

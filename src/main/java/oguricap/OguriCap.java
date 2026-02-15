@@ -44,7 +44,7 @@ public class OguriCap {
     }
 
     public boolean isExitCommand(String input) {
-        return input.trim().equals("bye");
+        return input.trim().startsWith("bye");
     }
 
     /**

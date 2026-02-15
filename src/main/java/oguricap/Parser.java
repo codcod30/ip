@@ -50,7 +50,7 @@ public class Parser {
                 int index = Integer.parseInt(parts[1].trim()) - 1;
                 return new UnmarkCommand(index);
             } catch (NumberFormatException e) {
-                throw new DukeException("Invalid task number for mark: " + parts[1]);
+                throw new DukeException("Invalid task number for unmark: " + parts[1]);
             }
         case "delete":
             checkArgument(parts, "delete");
@@ -58,29 +58,67 @@ public class Parser {
                 int index = Integer.parseInt(parts[1].trim()) - 1;
                 return new DeleteCommand(index);
             } catch (NumberFormatException e) {
-                throw new DukeException("Invalid task number for mark: " + parts[1]);
+                throw new DukeException("Invalid task number to delete: " + parts[1]);
             }
         case "todo":
             checkArgument(parts, "todo");
             return new AddCommand(new Todo(parts[1]));
         case "deadline":
-            checkArgument(parts, "deadline");
+            if (parts.length < 2) {
+                throw new DukeException("The deadline command requires a description and /by DATE.");
+            }
+
             String[] dlParts = parts[1].split("/by", 2);
+
             if (dlParts.length < 2) {
-                throw new DukeException("Deadline must have /by");
+                throw new DukeException("Deadline must be in format: deadline DESCRIPTION /by DATE");
             }
-            return new AddCommand(new Deadline(dlParts[0].trim(), dlParts[1].trim()));
+
+            String description = dlParts[0].trim();
+            String by = dlParts[1].trim();
+
+            if (description.isEmpty()) {
+                throw new DukeException("The description of a deadline cannot be empty.");
+            }
+
+            if (by.isEmpty()) {
+                throw new DukeException("The deadline date cannot be empty.");
+            }
+
+            return new AddCommand(new Deadline(description, by));
         case "event":
-            checkArgument(parts, "event");
-            String[] evParts = parts[1].split("/from", 2);
-            if (evParts.length < 2) {
-                throw new DukeException("Event must have /from");
+            if (parts.length < 2) {
+                throw new DukeException("The event command requires a description, /from and /to.");
             }
+
+            String[] evParts = parts[1].split("/from", 2);
+
+            if (evParts.length < 2) {
+                throw new DukeException("Event must be in format: event DESCRIPTION /from START /to END");
+            }
+
+            String descriptionEv = evParts[0].trim();
+            if (descriptionEv.isEmpty()) {
+                throw new DukeException("The description of an event cannot be empty.");
+            }
+
             String[] toParts = evParts[1].split("/to", 2);
             if (toParts.length < 2) {
                 throw new DukeException("Event must have /to");
             }
-            return new AddCommand(new Event(evParts[0].trim(), toParts[0].trim(), toParts[1].trim()));
+
+            String from = toParts[0].trim();
+            String to = toParts[1].trim();
+
+            if (from.isEmpty()) {
+                throw new DukeException("The event start date cannot be empty.");
+            }
+
+            if (to.isEmpty()) {
+                throw new DukeException("The event end date cannot be empty.");
+            }
+
+            return new AddCommand(new Event(descriptionEv, from, to));
         case "find":
             checkArgument(parts, "find");
             return new FindCommand(parts[1]);
