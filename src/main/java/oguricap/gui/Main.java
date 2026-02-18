@@ -16,6 +16,11 @@ public class Main extends Application {
 
     private OguriCap oguriCap = new OguriCap("data/oguri_cap_tasks.txt");
 
+    /**
+     * The main entry point for the JavaFX application.
+     * Loads the FXML layout and initializes the main window.
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {
