@@ -88,16 +88,16 @@ deadline Submit assignment /by 2026-02-20
 
 ### 4. Adding an Event
 
-Adds a task with a start and end time.
+Adds a task with a start and end date.
 
 **Format:**
 ```
-event DESCRIPTION /from START /to END
+event DESCRIPTION /from START_DATE /to END_DATE
 ```
 
 **Example:**
 ```
-event Project meeting /from 2pm /to 4pm
+event Project meeting /from 2026-02-24 /to 2026-02-24
 ```
 
 ---
