@@ -64,61 +64,9 @@ public class Parser {
             checkArgument(parts, "todo");
             return new AddCommand(new Todo(parts[1]));
         case "deadline":
-            if (parts.length < 2) {
-                throw new DukeException("The deadline command requires a description and /by DATE.");
-            }
-
-            String[] dlParts = parts[1].split("/by", 2);
-
-            if (dlParts.length < 2) {
-                throw new DukeException("Deadline must be in format: deadline DESCRIPTION /by DATE");
-            }
-
-            String description = dlParts[0].trim();
-            String by = dlParts[1].trim();
-
-            if (description.isEmpty()) {
-                throw new DukeException("The description of a deadline cannot be empty.");
-            }
-
-            if (by.isEmpty()) {
-                throw new DukeException("The deadline date cannot be empty.");
-            }
-
-            return new AddCommand(new Deadline(description, by));
+            return parseDeadline(parts);
         case "event":
-            if (parts.length < 2) {
-                throw new DukeException("The event command requires a description, /from and /to.");
-            }
-
-            String[] evParts = parts[1].split("/from", 2);
-
-            if (evParts.length < 2) {
-                throw new DukeException("Event must be in format: event DESCRIPTION /from START /to END");
-            }
-
-            String descriptionEv = evParts[0].trim();
-            if (descriptionEv.isEmpty()) {
-                throw new DukeException("The description of an event cannot be empty.");
-            }
-
-            String[] toParts = evParts[1].split("/to", 2);
-            if (toParts.length < 2) {
-                throw new DukeException("Event must have /to");
-            }
-
-            String from = toParts[0].trim();
-            String to = toParts[1].trim();
-
-            if (from.isEmpty()) {
-                throw new DukeException("The event start date cannot be empty.");
-            }
-
-            if (to.isEmpty()) {
-                throw new DukeException("The event end date cannot be empty.");
-            }
-
-            return new AddCommand(new Event(descriptionEv, from, to));
+            return parseEvent(parts);
         case "find":
             checkArgument(parts, "find");
             return new FindCommand(parts[1]);
@@ -127,6 +75,78 @@ public class Parser {
         default:
             throw new DukeException("Hmm...Unknown command: " + input);
         }
+    }
+
+    /**
+     * Parses a deadline command and returns the corresponding AddCommand with a Deadline task.
+     * @param parts Input parts split by space.
+     * @return An AddCommand containing the Deadline task.
+     * @throws DukeException If the input format is invalid or required fields are missing.
+     */
+    private static Command parseDeadline(String[] parts) throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("The deadline command requires a description and /by DATE.");
+        }
+
+        String[] dlParts = parts[1].split("/by", 2);
+
+        if (dlParts.length < 2) {
+            throw new DukeException("Deadline must be in format: deadline DESCRIPTION /by DATE");
+        }
+
+        String description = dlParts[0].trim();
+        String by = dlParts[1].trim();
+
+        if (description.isEmpty()) {
+            throw new DukeException("The description of a deadline cannot be empty.");
+        }
+
+        if (by.isEmpty()) {
+            throw new DukeException("The deadline date cannot be empty.");
+        }
+
+        return new AddCommand(new Deadline(description, by));
+    }
+
+    /**
+     * Parses an event command and returns the corresponding AddCommand with an Event task.
+     * @param parts Input parts split by space.
+     * @return An AddCommand containing the Event task.
+     * @throws DukeException If the input format is invalid or required fields are missing.
+     */
+    private static Command parseEvent(String[] parts) throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("The event command requires a description, /from and /to.");
+        }
+
+        String[] evParts = parts[1].split("/from", 2);
+
+        if (evParts.length < 2) {
+            throw new DukeException("Event must be in format: event DESCRIPTION /from START /to END");
+        }
+
+        String description = evParts[0].trim();
+        if (description.isEmpty()) {
+            throw new DukeException("The description of an event cannot be empty.");
+        }
+
+        String[] toParts = evParts[1].split("/to", 2);
+        if (toParts.length < 2) {
+            throw new DukeException("Event must have /to");
+        }
+
+        String from = toParts[0].trim();
+        String to = toParts[1].trim();
+
+        if (from.isEmpty()) {
+            throw new DukeException("The event start date cannot be empty.");
+        }
+
+        if (to.isEmpty()) {
+            throw new DukeException("The event end date cannot be empty.");
+        }
+
+        return new AddCommand(new Event(description, from, to));
     }
 
     /**
@@ -142,3 +162,4 @@ public class Parser {
         }
     }
 }
+
